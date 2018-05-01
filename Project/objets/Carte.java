@@ -1,7 +1,7 @@
 package objets;  //Appartennance au package "objets".
  
 /**
-  *<b> Les cartes !</b>
+  *<b> The cards !</b>
   *<P>
   *Elle contient :
   *<ul>
@@ -18,19 +18,19 @@ package objets;  //Appartennance au package "objets".
   * @version 0.5
   */
 
-public class Carte   						//Création d'une class "Carte"
-implements Comparable<Carte>				//Implémentation d'un comparateur
+public class Carte   					//Creation of class "Carte"
+implements Comparable<Carte>				//Implementation compareur
 {
 	//ATTRIBUTS
 	
-	/* Les couleurs */
+	/* Colors */
 	public final static int PIQUE = 0;
 	public final static int TREFLE = 1;
 	public final static int COEUR = 2;
 	public final static int CARREAU = 3;
 	public final static int ATOUT = 4;
 	
-	/* Les rangs (=Carte "spéciale") */
+	/* Ranks (= Special cards) */
 	public final static int VALET = 11;
 	public final static int CAVALIER = 12;
 	public final static int DAME = 13;
@@ -39,34 +39,34 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	public final static int EXCUSE = 36;
 	
 	/* variables (=non modifiable une fois la carte créer) */
-	// Integer a cause du comparareur
-	public Integer couleur;
-	public Integer rang;
-	public Integer id;
+	// Integer because compareur
+	public Integer couleur;	// color
+	public Integer rang;	// rank
+	public Integer id;	// id
 	
 	/**
-	 * Le constructeur, permet de créer une carte.
+	 * Constructor, create a card.
 	 * <p>
 	 * @param Rang
-	 * 				Le rang de la carte
+	 * 				rank of the card
 	 * <p>
 	 * @param Couleur
-	 * 				La couleur de la carte
+	 * 				color of the card
 	 * <p>
 	 * @param Id
-	 * 				L'identifiant de la carte
+	 * 				id of the card
 	 */
 	public Carte(int Rang, int Couleur, int Id) {
 		
-	if (Couleur != PIQUE && Couleur != COEUR && Couleur != CARREAU &&  //Vérifie la couleur de la carte.
+	if (Couleur != PIQUE && Couleur != COEUR && Couleur != CARREAU &&  //Check the color
 			Couleur != TREFLE && Couleur != ATOUT) {
 		
-	 throw new IllegalArgumentException("Erreur: couleur impossible !"); //indique que cette couleur n'est pas possible.
+	 throw new IllegalArgumentException("Erreur: couleur impossible !"); //Show it's not possible.
 	}
 	
-	if (Rang < 1 || Rang > 36) {										//Vérifie le rang de la carte.
+	if (Rang < 1 || Rang > 36) {	//Check card rank's.
 		
-	 throw new IllegalArgumentException("Erreur: rang impossible !"); //indique que ce rang n'est pas possible.
+	 throw new IllegalArgumentException("Erreur: rang impossible !"); //Show it's not possible.
 	}
 	
 	rang = Rang;
@@ -78,14 +78,14 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	//METHODES\\
 	
 	/**
-	 * @return La couleur de la carte. (int)
+	 * @return Card color's. (int)
 	 */
 	public int getCouleur(){ //Indique la couleur de la carte
 		return couleur;	//renvois la couleur
 	}
 	
 	/**
-	 * @return Le rang de la carte. (int)
+	 * @return Card rank's. (int)
 	 */
 	public int getRang(){	//Indique le rang de la carte
 		return rang;	//renvois le rang
@@ -93,22 +93,22 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	
 	/**
 	 * 
-	 * @return L'id (unique) de la carte. (int)
+	 * @return Card id's. (int)
 	 */
 	public int getId() {
 		return id;
 	}
 	
 	/**
-	 * Nomme les couleurs.
+	 * Name the colors.
 	 * 
-	 * @return La couleur de la carte. (String)
+	 * @return Card color's. (String)
 	 */
 	public String getCouleurNom() {
 			
-	switch ( couleur ) {					//Evite les répétitions de If(...) Else(...).
-	// Exemple : Si couleur = 1, alors getCouleurNom() afficheras "de Pique" .
-    // De même pour couleur = 2, getcouleurNom() = "de Trefle".
+	switch ( couleur ) {	// Avoid repetition of : If(...) Else(...).
+				// Exemple : if couleur = 1, getCouleurNom() display "de Pique" .
+    				// likewise for couleur = 2, getcouleurNom() = "de Trefle".
 	
 	case PIQUE:   return " de Pique";
 	case TREFLE:    return " de Trefle";
@@ -121,18 +121,18 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
    }
     
 	/**
-	 * Nomme les rangs.
+	 * Name the ranks.
 	 * <p>
-	 * <i> Les rangs des cartes classique sont compris de 1 à 14,
-	 * alors que les atouts sont de 15 à 36. </i>
+	 * <i> classique ranks are about 1 to 14,
+	 * "Atouts" are 15 to 36. </i>
 	 * </p>
-	 * @return Le rang de la carte. (String)
+	 * @return Card rank's. (String)
 	 */
 	public String getRangNom() {
 		
-         switch ( rang ) {			//Evite les répétitions de If(...) Else(...).
-         // Exemple : Si rang = 1, alors getRangNom() afficheras "As" .
-         // De même pour rang = 2, getRangNom() = "2".
+         switch ( rang ) { 	// Avoid repetition of : If(...) Else(...).
+         			// Exemple : if rang = 1, getRangNom() display "As" .
+         			// likewise for rang = 2, getRangNom() = "2".
          
          case 1:   return "As";
          case 2:   return "2";
@@ -177,12 +177,13 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
     }
    
 	/**
-	 * Permet de nommer les cartes
+	 * Name the carde !
 	 * 
-	 * @return Le nom de la carte (String)
+	 * @return Card name's (String)
 	 */
 	@Override
-	public String toString() { //Nomme les cartes (rang+nom), utilisation du toString (=Reconnu par JAVA)
+	public String toString() {
+		
 		return getRangNom() + getCouleurNom();
 	}
 	
