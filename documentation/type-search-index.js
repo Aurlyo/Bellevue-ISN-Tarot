@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"objets","l":"Carte"},{"p":"affichage","l":"Debug"},{"p":"objets","l":"Equipe"},{"p":"jeu","l":"Jeu"},{"p":"objets","l":"Joueur"},{"p":"objets","l":"Paquet"},{"p":"jeu","l":"Tarot"}]
