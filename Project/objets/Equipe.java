@@ -3,23 +3,23 @@ package objets;
 import java.util.ArrayList;
 
 /**
- * <b> Les équipes ! </b>
+ * <b> The team ! </b>
  * <p>
  * @author Aurélien
  *
  */
 public class Equipe {
 	
-	public ArrayList<Joueur> joueurs = new ArrayList<Joueur>(); //Les joueurs de l'équipe.
-	public ArrayList<Carte> plis = new ArrayList<Carte>();     //Les plis gagnés de l'équipe.
-	byte type; //Soit 1 ou 0
+	public ArrayList<Joueur> joueurs = new ArrayList<Joueur>(); //Team's players.
+	public ArrayList<Carte> plis = new ArrayList<Carte>();     // Round win by the team.
+	byte type; //Let 1 ou 0
 	String nom;
 	
 	/**
 	 * 
 	 * @param Type
-	 * 			0 = Defenseur, 
-	 * 			1 = Preneur
+	 * 			0 = Defender, 
+	 * 			1 = Taker
 	 */
 	public Equipe(byte Type) {
 		this.type = Type;
