@@ -1,10 +1,9 @@
 # Bellevue-ISN-Tarot
-My final exams project.
+Notre projet final pour le BAC !
 
-This project is about create a card game, a Tarot.
-I post here because it's make a safe "cloud".
+Le projet consiste a créer un jeu de tarot.
 
-If you want more detail, ask !
+Pour plus de détail, n'hésitez pas a demander !
 
-/!\The comments and code are in french due to the French Exams Need/!\
-<i> * I will post an updated version with english comment * </i>
+/!\ Le code ainsi que les commentaires sont en français du au réglementation /!\
+* <i> English Version in English branch ;) </i>
