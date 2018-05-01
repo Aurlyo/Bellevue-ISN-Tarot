@@ -36,7 +36,14 @@ public class Tarot {
 		System.out.println("Vous avez fait : " + nbDistribution + " distribtutions avant de prendre ! \n"); //indique le nombre de fois que la boucle a été exécuté.
 		
 		Tarot.compositionChien();			// La composition du chien par le joueur.
-	
+		
+		while(Jeu.tourDeJeu < Jeu.tourDeJeuMAX) {
+			
+			Jeu.tourDeJeu++;
+			System.out.println("++++++++++++++++ Tour n_" + Jeu.tourDeJeu + " ++++++++++++++++");
+			
+			Tarot.jouer();
+		}
 	}
 	
 	/**

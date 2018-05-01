@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 public class Equipe {
 	
-	public ArrayList<Joueur> equipe = new ArrayList<Joueur>(); //Les joueurs de l'équipe
-	public ArrayList<Carte> plis = new ArrayList<Carte>();     //Les plis gagnés de l'équipe
+	public ArrayList<Joueur> joueurs = new ArrayList<Joueur>(); //Les joueurs de l'équipe.
+	public ArrayList<Carte> plis = new ArrayList<Carte>();     //Les plis gagnés de l'équipe.
 	byte type; //Soit 1 ou 0
 	String nom;
 	
@@ -39,7 +39,7 @@ public class Equipe {
 	}
 	
 	public ArrayList<Joueur> getEquipe() {
-		return equipe;
+		return joueurs;
 	}
 	
 	public ArrayList<Carte> getPlis() {

@@ -16,6 +16,8 @@ import jeu.Jeu;
  * <li> Un identifiant (NON modifiable).
  * <li> Une liste contenant ses cartes (= Sa main).
  * <li> Sa mise (et si oui ou non il mise).
+ * <li> La carte jouée.
+ * <li> Si oui ou non il a déjâ joué.
  * </ul>
  * 
  * @see Carte
@@ -28,10 +30,14 @@ public class Joueur {
 	//ATTRIBUTS
 	public String pseudo = "Aurelien , Wilhelm, Futa, Loli, Yoshi, Mario, Jack, Dio, Jotaro, Joseph, Polnareff, C3PO, R2D2, Assia, Alhynae, Flavien, Iridium, Saturne V, Ciel, Sebastian, L, Kira, Misaka, Aoba"; // Le pseudo, avec une liste de pseudo pré-défini.
 	public String Pseudos[] = pseudo.split(",");
-	public short score; // Le score
-	public byte position; // L'identifiant , il sert a savoir quel joueur c'est, (1 / 2 / 3 / 4)
-	public static boolean prise;
-	public static byte miseActuel;
+	
+	public short score; 			// Le score
+	public byte position; 			// L'identifiant , il sert a savoir quel joueur c'est, (1 / 2 / 3 / 4)
+	public static boolean prise;	// Si le joueurs a pris.
+	public static byte miseActuel;	// Sa valeur de mise.
+	
+	public byte cartejouee;
+	public boolean jouer;
 	
 	public ArrayList<Carte> Hand = new ArrayList<Carte>();
 	
@@ -71,6 +77,9 @@ public class Joueur {
 		this.pseudo = PseudoEntree;
 	}
 	
+	/**
+	 * Nomme aléatoirement le joueur.
+	 */
 	public void pseudoAleatoire() {
 		byte random = (byte) (Math.random() * ( this.Pseudos.length - 0 ));
 		
@@ -188,20 +197,87 @@ public class Joueur {
 	 * Joue une carte (POUR LES IA)
 	 */
 	public void jouerIA() {
-		int carte = (int) (Math.random() * ( (24 - Jeu.tourDeJeu) - 0 ));
-		System.out.println(this.pseudo + " a jouer : [" + this.Hand.get(carte) + "] !");
-		Jeu.carteJouees.add(this.Hand.get(carte));
-		this.Hand.remove(carte);
+		
+		this.jouer = false;
+		
+		if(Jeu.carteJouees.isEmpty() == true) {
+			
+			this.cartejouee = (byte) (Math.random() * ( (24 - Jeu.tourDeJeu) - 0 ));
+			System.out.println(this.pseudo + " a jouer : [" + this.Hand.get(cartejouee) + "] !");
+			Jeu.carteJouees.add(this.Hand.get(cartejouee));
+			this.Hand.remove(cartejouee);
+			this.jouer = true;
+			
+		} else {
+			
+			while(Jeu.carteJouees.get(0).getCouleur() != this.Hand.get(cartejouee).getCouleur() && this.jouer == false) {
+							
+				this.cartejouee = (byte) (Math.random() * ( (24 - Jeu.tourDeJeu) - 0 ));
+				
+				if(this.Hand.get(cartejouee).getCouleur() == Carte.ATOUT && this.jouer == false) break;
+			}
+			
+			System.out.println(this.pseudo + " a jouer : [" + this.Hand.get(cartejouee) + "] !");
+			Jeu.carteJouees.add(this.Hand.get(cartejouee));
+			this.Hand.remove(cartejouee);
+			
+			
+		}
 	}
 	
 	/**
 	 * Joue une carte (Pour le joueur)
 	 */
 	public void jouerJOUEUR() {
-		System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main \n EN ATTENTE D'INTERFACE GRAPHIQUE !");
-		int carte = Jeu.sc1.nextInt();
-		System.out.println("Vous avez jouer [" + this.Hand.get(carte) + "] !");
-		Jeu.carteJouees.add(this.Hand.get(carte));
-		this.Hand.remove(carte);
+		
+		this.jouer = false;
+		
+		if(Jeu.carteJouees.isEmpty() == true && this.jouer == false) { //Si c'est le premier a jouer.
+			
+			System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main \n EN ATTENTE D'INTERFACE GRAPHIQUE !");
+			this.cartejouee = Jeu.sc1.nextByte();			//Entrée clavier utilisateur
+			System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
+			Jeu.carteJouees.add(this.Hand.get(cartejouee));	//On ajoute la carte sur le terrain de jeu.
+			this.Hand.remove(cartejouee);					//On retire la carte de la main du joueur.
+			this.jouer = true;
+			
+		} else { // Sinon on verifie la couleur jouée.
+			
+			byte tentative = 0;
+			
+			if(tentative < 10) {
+				
+				while(Jeu.carteJouees.get(0).getCouleur() != this.Hand.get(cartejouee).getCouleur() && this.jouer == false) {
+					
+					tentative++;
+					
+					System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main.");
+					this.cartejouee = Jeu.sc1.nextByte();
+					
+					if(this.Hand.get(cartejouee).getCouleur() == Carte.ATOUT && jouer == false) { //Pour le cas ou la carte jouée est un atout. (=Couper).
+						
+						System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
+						Jeu.carteJouees.add(this.Hand.get(cartejouee));			//On ajoute la carte sur le terrain de jeu.
+						this.Hand.remove(cartejouee);							//On retire la carte de la main du joueur.
+						jouer = true;
+						
+					} else {
+						
+						System.out.println("Vous ne pouver pas jouer cette carte !");
+						
+					}
+				}
+			} else {
+				
+				System.out.println("Il semblerait que vous etes arriver a un point de blocage !!!");
+				
+			}
+			
+			System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
+			Jeu.carteJouees.add(this.Hand.get(cartejouee));	//On ajoute la carte sur le terrain de jeu.
+			this.Hand.remove(cartejouee);
+			jouer = true;
+			
+		}
 	}
 } //FIN CLASSE JOUEUR d(^^*)

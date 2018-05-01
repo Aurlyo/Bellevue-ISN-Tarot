@@ -5,25 +5,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import objets.Carte;
+import objets.Equipe;
 import objets.Joueur;
 import objets.Paquet;
 
 /**
  * <b>Contient toutes les fonctions relative au jeu</b>
  * <p>
- * On y trouve les fonctions :
- * <ul>
- * <li>D'initialisation.</li>
- * <ul>
- * <li>Création du paquet de cartes.
- * <li>Ainsi que des joueurs.
- * <li>De leurs mises.
- * </ul>
- * <li>De jeu.</li>
- * <ul>
- * <li> ???
- * </ul>
- * </ul>
  * 
  * @see Joueur
  * @see Carte
@@ -38,6 +26,8 @@ public class Jeu {
     public static Scanner sc1 = new Scanner(System.in);					//Entrée clavier
 	static Paquet jeuDeCartes = new Paquet(); 							//Création du jeu de cartes
 	static List<Joueur> players = new ArrayList<Joueur>();				//Liste de Joueurs
+	Equipe preneur = new Equipe((byte) 1);								//Création de l'équipe "preneur"
+	Equipe defenseur = new Equipe((byte) 0);							//Création de l'équipe 'Defenseur'.
 	public static List<Carte> carteJouees = new ArrayList<Carte>(); 	//Liste pour les cartes actuellement jouées
 	
 	static short score = 0;
@@ -67,29 +57,38 @@ public class Jeu {
 		
 		players.add(Chien);
 		
-		if (nbJoueur == 3) {
+		if (nbJoueur == 3) {	// Pour 3 joueurs.
 			
 			tourDeJeuMAX = 24;
 			
 			Joueur01.nommer();
 			players.add(Joueur01);
+			preneur.joueurs.add(Joueur01);
+			
 			Joueur02.pseudoAleatoire();
 			players.add(Joueur02);
+			defenseur.joueurs.add(Joueur02);
 			Joueur03.pseudoAleatoire();
 			players.add(Joueur03);
+			defenseur.joueurs.add(Joueur03);
 			
-		} else if(nbJoueur == 4){
+		} else if(nbJoueur == 4){	// Pour 4 joueurs.
 			
 			tourDeJeuMAX = 18;
 			
 			Joueur01.nommer();
 			players.add(Joueur01);
+			preneur.joueurs.add(Joueur01);
+			
 			Joueur02.pseudoAleatoire();
 			players.add(Joueur02);
+			defenseur.joueurs.add(Joueur02);
 			Joueur03.pseudoAleatoire();
 			players.add(Joueur03);
+			defenseur.joueurs.add(Joueur03);
 			Joueur04.pseudoAleatoire();
 			players.add(Joueur04);
+			defenseur.joueurs.add(Joueur04);
 		} else {
 			throw new IllegalArgumentException("Erreur: nombre de joueurs impossible !");
 		}
@@ -229,6 +228,15 @@ public class Jeu {
 		
 		if(nbJoueur == 3) {
 			
+			//Le joueur commenceras toujours les parties /!\
+				
+				Joueur01.jouerJOUEUR();
+				
+				Joueur02.jouerIA();
+				
+				Joueur03.jouerIA();
+			
+				carteJouees.clear();
 		} else {
 			
 		}
