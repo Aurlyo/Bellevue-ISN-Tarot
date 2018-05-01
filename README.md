@@ -6,4 +6,4 @@ I post here because it's make a safe "cloud".
 
 If you want more detail, ask !
 
-* <i> French version in the master branch ! </i> *
+* <i> version française dans la branche principale ! </i> *
