@@ -7,17 +7,17 @@ import javax.swing.JOptionPane;
 import jeu.Jeu;
 
 /**
- * <b> Les joueurs ! </b>
+ * <b> Players ! </b>
  * <p>
- * Chaque joueurs possède :
+ * Each player had :
  * <ul>
- * <li> Un pseudo (modifiable).
- * <li> Un score (modifiable).
- * <li> Un identifiant (NON modifiable).
- * <li> Une liste contenant ses cartes (= Sa main).
- * <li> Sa mise (et si oui ou non il mise).
- * <li> La carte jouée.
- * <li> Si oui ou non il a déjâ joué.
+ * <li> a pseudo (alterable).
+ * <li> a score (alterable).
+ * <li> a identifiant (NOT alterable).
+ * <li> a list with all his cards (= his Hand).
+ * <li> his bet (and if he bet).
+ * <li> played card.
+ * <li> if he has already played.
  * </ul>
  * 
  * @see Carte
@@ -28,29 +28,29 @@ import jeu.Jeu;
 public class Joueur {
 	
 	//ATTRIBUTS
-	public String pseudo = "Aurelien , Wilhelm, Futa, Loli, Yoshi, Mario, Jack, Dio, Jotaro, Joseph, Polnareff, C3PO, R2D2, Assia, Alhynae, Flavien, Iridium, Saturne V, Ciel, Sebastian, L, Kira, Misaka, Aoba"; // Le pseudo, avec une liste de pseudo pré-défini.
+	public String pseudo = "Aurelien , Wilhelm, Futa, Loli, Yoshi, Mario, Jack, Dio, Jotaro, Joseph, Polnareff, C3PO, R2D2, Assia, Alhynae, Flavien, Iridium, Saturne V, Ciel, Sebastian, L, Kira, Misaka, Aoba"; // pseudo, with a preset list.
 	public String Pseudos[] = pseudo.split(",");
 	
-	public short score; 			// Le score
-	public byte position; 			// L'identifiant , il sert a savoir quel joueur c'est, (1 / 2 / 3 / 4)
-	public static boolean prise;	// Si le joueurs a pris.
-	public static byte miseActuel;	// Sa valeur de mise.
+	public short score; 			// score
+	public byte position; 			// Id , it serves to know which player it's, (1 / 2 / 3 / 4)
+	public static boolean prise;	// If he take..
+	public static byte miseActuel;	// His bet.
 	
-	public byte cartejouee;
-	public boolean jouer;
+	public byte cartejouee;		// Played card
+	public boolean jouer;		// Played ?
 	
 	public ArrayList<Carte> Hand = new ArrayList<Carte>();
 	
 	//CONSTRUCTEUR
 	/** 
 	 * @param Pseudo
-	 * 					Le pseudo du joueur
+	 * 					his pseudo
 	 * <p>
 	 * @param Score
-	 * 					Son score
+	 * 					his score
 	 * <p>
 	 * @param Position
-	 * 					Son identifiant
+	 * 					his id
 	 */
 	public Joueur(String Pseudo,short Score,byte Position){  //(Pseudo, score, position) / ex : (Aurélien, 0 , 1) = Pseudo: Aurélien,Score: 0,Joueur n°01
 		this.pseudo = Pseudo;
@@ -61,24 +61,24 @@ public class Joueur {
 	//METHODES
 	
 	/**
-	 * @return Le pseudo du joueur. (String)
+	 * @return Player's pseudo. (String)
 	 */
-	public String getPseudo(){  //Affiche le pseudo
+	public String getPseudo(){
 		return pseudo;
 	}
 
 	/**
-	 * Change le pseudo du joueur.
+	 * Change player's pseudo.
 	 * 
 	 * @param PseudoEntree
-	 * 					Le pseudo entrée par l'utilisateur.
+	 * 					input pseudo.
 	 */
-	public void changePseudo(String PseudoEntree){  //Change le pseudo
+	public void changePseudo(String PseudoEntree){
 		this.pseudo = PseudoEntree;
 	}
 	
 	/**
-	 * Nomme aléatoirement le joueur.
+	 * Random name for player.
 	 */
 	public void pseudoAleatoire() {
 		byte random = (byte) (Math.random() * ( this.Pseudos.length - 0 ));
@@ -87,9 +87,9 @@ public class Joueur {
 	}
 	
 	/**
-	 * Permet de nommer le joueur.
+	 * Allow to name the player.
 	 * <p>
-	 * On attribue au joueur un pseudo qu'il choisit
+	 * The player is given a nickname that he chooses
 	 * </P>
 	 */
 	public void nommer() {
@@ -103,45 +103,45 @@ public class Joueur {
 	  }
 
 	/**
-	 * @return Le score du joueur. (short)
+	 * @return player's score. (short)
 	 */
-	public int getScore(){  //Affiche le score
+	public int getScore(){
 		return score;
 	}
 	
 	/**
-	 * Change le score du joueur.
+	 * Change player's score.
 	 * 
 	 * @param ScoreEntree
-	 * 					Le score du joueur.
+	 * 					input score.
 	 */
 	public void changeScore(short ScoreEntree){ 
 		score = ScoreEntree;
 	}
 	
 	/**
-	 * Indique le nombre de carte du joueur.
+	 * Indicates the player's card number.
 	 */
 	public void getHand() {
 		System.out.print(pseudo + " a :" + Hand.size() + " cartes ! \n");
 	}
 	
 	/**
-	 * Affiche les cartes du joueurs.
+	 * Display the player's cards.
 	 */
 	public void display() {
 		int i;
 		System.out.println(getPseudo() + " a dans sa main :");
 		
 		for(i=0; i < Hand.size(); i++) {	
-			System.out.println("[" + Hand.get(i) + "]  [" + i +"]");	//Affiche en colonne dans la console.
+			System.out.println("[" + Hand.get(i) + "]  [" + i +"]");	//Column poster in the console.
 		}
 		
 		System.out.println( "----END---- \n");
 	}
 	
 	/**
-	 * Trie les cartes du joueur selon le compareur de la classe Carte.
+	 * Sort the player's card.
 	 * @see Carte
 	 */
 	public void trier() {
@@ -149,11 +149,11 @@ public class Joueur {
 	}
 	
 	/**
-	 * Propose les mises au joueurs.
+	 * Offord the bet to the player.
 	 */
 	public int mise(){
 		
-		String[] Mise = {"Petite", "Garde", "Garde sans", "Garde contre"}; //Les mises possibles.
+		String[] Mise = {"Petite", "Garde", "Garde sans", "Garde contre"}; //Possible bet.
 		
 		byte mise = (byte) JOptionPane.showOptionDialog(null,
 	    	      "Veuillez indiquer votre mise",
@@ -170,7 +170,7 @@ public class Joueur {
 	}
 	
 	/**
-	 * Propose au joueur de miser.
+	 * Afford to take the "dog".
 	 * @return 
 	 */
 	public boolean prise() {
@@ -194,7 +194,7 @@ public class Joueur {
 	
 	
 	/**
-	 * Joue une carte (POUR LES IA)
+	 * Play a card (FOR AI)
 	 */
 	public void jouerIA() {
 		
@@ -226,22 +226,22 @@ public class Joueur {
 	}
 	
 	/**
-	 * Joue une carte (Pour le joueur)
+	 * Play a card (player)
 	 */
 	public void jouerJOUEUR() {
 		
 		this.jouer = false;
 		
-		if(Jeu.carteJouees.isEmpty() == true && this.jouer == false) { //Si c'est le premier a jouer.
+		if(Jeu.carteJouees.isEmpty() == true && this.jouer == false) { //If it's the first to play.
 			
 			System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main \n EN ATTENTE D'INTERFACE GRAPHIQUE !");
-			this.cartejouee = Jeu.sc1.nextByte();			//Entrée clavier utilisateur
+			this.cartejouee = Jeu.sc1.nextByte();			//Keyboard input
 			System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
-			Jeu.carteJouees.add(this.Hand.get(cartejouee));	//On ajoute la carte sur le terrain de jeu.
-			this.Hand.remove(cartejouee);					//On retire la carte de la main du joueur.
+			Jeu.carteJouees.add(this.Hand.get(cartejouee));	// Adding the card on the playField
+			this.Hand.remove(cartejouee);			// Remove it from his hand.
 			this.jouer = true;
 			
-		} else { // Sinon on verifie la couleur jouée.
+		} else { // Check the colors played.
 			
 			byte tentative = 0;
 			
@@ -257,9 +257,9 @@ public class Joueur {
 					if(this.Hand.get(cartejouee).getCouleur() == Carte.ATOUT && jouer == false) { //Pour le cas ou la carte jouée est un atout. (=Couper).
 						
 						System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
-						Jeu.carteJouees.add(this.Hand.get(cartejouee));			//On ajoute la carte sur le terrain de jeu.
-						this.Hand.remove(cartejouee);							//On retire la carte de la main du joueur.
-						jouer = true;
+						Jeu.carteJouees.add(this.Hand.get(cartejouee));	 //Adding the card on the playField
+						this.Hand.remove(cartejouee);			 //Remove it from his hand.
+						jouer = true;					 // Played = true
 						
 					} else {
 						
