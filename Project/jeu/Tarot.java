@@ -7,35 +7,35 @@ import objets.Joueur;
 import objets.Paquet;
 
 /**
- * <b>Classe contenant le main()</b>
+ * <b>Class withe the main()</b>
  * 
  * @author Aurélien
  *
  */
 public class Tarot {
 
-	static byte nbJoueur;					// Le nombre de Joueurs.
-	static byte nbDistribution = 0; 			// Le nombre de distribution effectué (Debug).
+	static byte nbJoueur;					// Number of players.
+	static byte nbDistribution = 0; 			// Distribution number made (Debug).
 	
 	public static void main(String[] args) {
 		
-		Debug.initConsole(); 				// Affiche une fenêtre console, avec entrée clavier.
-		choixNombreDeJoueur(); 				// Choix du nombre de joueurs.
+		Debug.initConsole(); 				// Display the console, with a keyboard input.
+		choixNombreDeJoueur(); 				// Choice of player's number.
 		
-		Jeu Tarot = new Jeu(nbJoueur); 			// Création du jeu selon ce nombre de joueurs.
-		Tarot.creationJoueurs(); 			// Création des joueurs.
+		Jeu Tarot = new Jeu(nbJoueur); 			// Create the game according to it.
+		Tarot.creationJoueurs(); 			// Create the players.
 		
-		while (Joueur.prise != true) {			// Boucle tant que le joueur ne prends pas.
+		while (Joueur.prise != true) {			// Loop while the player doens't "take".
 			nbDistribution++;
-			reset(); 		 	 	// Remet tout a zero.
-			Tarot.distribution();			// Distribue les cartes.
-			Tarot.affichage();			// Affiche les pseudos et score des joueurs.
-			Tarot.mise();				// Propose au joueur de miser.
+			reset(); 		 	 	// Put everything back to zero.
+			Tarot.distribution();			// Distribute the cards.
+			Tarot.affichage();			// Display the pseudos and score.
+			Tarot.mise();				// Offers the player to bet.
 		}
 
-		System.out.println("Vous avez fait : " + nbDistribution + " distribtutions avant de prendre ! \n"); //indique le nombre de fois que la boucle a été exécuté.
+		System.out.println("Vous avez fait : " + nbDistribution + " distribtutions avant de prendre ! \n"); //Display how many time the loop had work.
 		
-		Tarot.compositionChien();			// La composition du chien par le joueur.
+		Tarot.compositionChien();			// Composing the "dog" by player.
 		
 		while(Jeu.tourDeJeu < Jeu.tourDeJeuMAX) {
 			
@@ -47,30 +47,30 @@ public class Tarot {
 	}
 	
 	/**
-	 * Permet de choisir le nombre de joueurs.
+	 * Choose the number of players.
 	 */
 	private static void choixNombreDeJoueur() {
 		String[] nb = {"3 joueurs", "4 joueurs"};
-	    nbJoueur = (byte) JOptionPane.showOptionDialog(null,  //Permet de choisir le nombre de joueurs.
-	    	      "A combien voulez vous jouer ?",            //Message de la fenêtre
-	    	      "2D > 3D",				  //Titre de la fenêtre
-	    	      JOptionPane.YES_NO_CANCEL_OPTION,		  //permet de donner un int
+	    nbJoueur = (byte) JOptionPane.showOptionDialog(null,  
+	    	      "A combien voulez vous jouer ?",            //Windows message
+	    	      "2D > 3D",				  //Windows title
+	    	      JOptionPane.YES_NO_CANCEL_OPTION,		  //give a byte
 	    	      JOptionPane.QUESTION_MESSAGE,		  //précise qu'on attends une réponse de l'utilisateur
 	    	      null,
-	    	      nb,					  //Liste de référence
+	    	      nb,					  //Reference list
 	    	      nb[0]);
 	    
-	    if (nbJoueur == 0) { //Transforme la réponse en obtenu, en chiffre plus significatifs.
+	    if (nbJoueur == 0) { //Transform the answer got into more significant numbers.
 	    	
-	    	nbJoueur =3; //3 joueurs
+	    	nbJoueur =3; //3  players.
 	    } else {
 	    	
-	    	nbJoueur = 4; //4 joueurs
+	    	nbJoueur = 4; //4 players.
 	    }
 	}
 	
 	/**
-	 * Réinitialise le jeu.
+	 * Reset the game.
 	 */
 	private static void reset() {
 		
