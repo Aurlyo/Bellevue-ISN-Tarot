@@ -4,10 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <b>Le paquet de cartes !</b>
+ * <b> Deck of cards!</b>
  * <p>
- * <i>C'est ici que les 78 cartes sont créer pour être intégrer
- * dans le paquet de jeu.</i>
+ * <i> It's here that the 78 cards are create and adds to the deck </i>
  * </p>
  * 
  * @see Carte
@@ -21,58 +20,58 @@ public class Paquet {
 	//ATTRIBUTS
 	
 	/**
-	 * Liste vide pour les cartes.
+	 * Empty list fore the cards (= deck).
 	 */
-	public static List<Carte> paquet = new ArrayList<Carte>(); //Création d'une liste vide pour "acceuillir" les cartes.
+	public static List<Carte> paquet = new ArrayList<Carte>();
 
 	//METHODES
 	
 	/**
-	 * Création des cartes, via une boucle.
+	 * Create the cards, with a loop.
 	 * <p>
-	 * <i>Les cartes classique et les atouts sont séparer lors de la créations.
-	 * Mais elles sont attribuer à la même liste, "paquet".</i>
+	 * <i> Classical cards and "Atouts" are separate at creation.
+	 * But there are added to the same list, "paquet".</i>
 	 * 
-	 * @return Une instance du paquet de cartes
+	 * @return A deck of card
 	 */
-	public void initialisation() { //Création des cartes
+	public void initialisation() {
 		
-		int rang; //Le rang de la carte créer.
-		int couleur; //La couleur de la carte créer.
+		int rang; 	//Card's rank.
+		int couleur; 	//Card's color.
 		
-		int id = 0;
-		//Carte "classiques"
-		for(couleur = 0; couleur <=3; couleur++){ //Pour les couleur allant de 0 à 3
-			for(rang = 1; rang <= 14; rang++) {	  //On augmente le rang de 0 à 14
-				id++;
-				paquet.add(new Carte(rang, couleur, id)); //Ajoute la carte créer au paquet.
+		int id = 0;	//id
+		// Classical card
+		for(couleur = 0; couleur <=3; couleur++){ 	//for the colors from 0 to 3
+			for(rang = 1; rang <= 14; rang++) {	//We increase the rank from 0 to 14
+				id++;				// id + 1
+				paquet.add(new Carte(rang, couleur, id)); //Add the card at the deck.
 			}
 		}
 		//Les Atouts
 		id = 56;
-		for(rang = 15; rang <=36; rang++) {	//Pour le rang allant de 15 à 36
-			couleur= 4;						//On garde la couleur "Atout"
-			id++;
-			paquet.add(new Carte(rang, couleur, id)); //Ajoute la carte créer au paquet.	
+		for(rang = 15; rang <=36; rang++) {	//for the rank from 15 to 36
+			couleur= 4;			//we keep the color "Atout"
+			id++;				// id +1
+			paquet.add(new Carte(rang, couleur, id)); //add to the deck.	
 		}
 	}
 	
 	/**
-	 * Mélange les cartes.
+	 * Shuffle the cards.
 	 */
 	public void melanger() {
 		Collections.shuffle(paquet);
 	}
 	
 	/**
-	 * Affiche le nombre de carte contenue dans le paquet.
+	 * Display the number of cards.
 	 */
 	public static void getNbCartes() {
 		System.out.print("Le paquet contiens :" + paquet.size() + " cartes ! \n");
 	}
 	
 	/**
-	 * Affiche les cartes du paquet.
+	 * Display the deck.
 	 */
 	public void display() {
 			System.out.println(paquet);	
