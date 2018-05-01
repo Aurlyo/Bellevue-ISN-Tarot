@@ -10,7 +10,7 @@ import objets.Joueur;
 import objets.Paquet;
 
 /**
- * <b>Contient toutes les fonctions relative au jeu</b>
+ * <b>Had all the functions relative to the game</b>
  * <p>
  * 
  * @see Joueur
@@ -23,23 +23,23 @@ import objets.Paquet;
 public class Jeu {
 				
 	//ATTRIBUTS
-    public static Scanner sc1 = new Scanner(System.in);					//Entrée clavier
-	static Paquet jeuDeCartes = new Paquet(); 							//Création du jeu de cartes
-	static List<Joueur> players = new ArrayList<Joueur>();				//Liste de Joueurs
-	Equipe preneur = new Equipe((byte) 1);								//Création de l'équipe "preneur"
-	Equipe defenseur = new Equipe((byte) 0);							//Création de l'équipe 'Defenseur'.
-	public static List<Carte> carteJouees = new ArrayList<Carte>(); 	//Liste pour les cartes actuellement jouées
+    public static Scanner sc1 = new Scanner(System.in);					//Keyboard inputs.
+	static Paquet jeuDeCartes = new Paquet(); 					//Creat a Cards Deck.
+	static List<Joueur> players = new ArrayList<Joueur>();				//Player's list.
+	Equipe preneur = new Equipe((byte) 1);						//Create team "Taker".
+	Equipe defenseur = new Equipe((byte) 0);					//Create team "Defender".
+	public static List<Carte> carteJouees = new ArrayList<Carte>(); 		//List for actual playedCards.
 	
 	static short score = 0;
-	static Joueur Joueur01 = new Joueur("Futa", score, (byte) 1), 		//Création des joueurs
+	static Joueur Joueur01 = new Joueur("Futa", score, (byte) 1), 			//Create the players
 				  Joueur02 = new Joueur("Wilhelm", score, (byte) 2),
 				  Joueur03 = new Joueur("Aurelien", score, (byte) 3),
 				  Joueur04 = new Joueur("Loli", score, (byte) 4),
 				  Chien = new Joueur("Chien", score, (byte) 5);
 	
-	static byte nbJoueur;				//Le nombre de joueurs
-	static int tourDeJeuMAX; 			//Le nombre de tours de jeu maximum ( = plis maximum)
-	public static int tourDeJeu = 0;	//Tours de jeu
+	static byte nbJoueur;				// Players number
+	static int tourDeJeuMAX; 			// Maximum rounds
+	public static int tourDeJeu = 0;		// ActualRound
 	
 	public Jeu(byte nbJoueurs) {
 		nbJoueur = nbJoueurs;
@@ -48,16 +48,16 @@ public class Jeu {
 	//METHODES
 
 	/**
-	 * Nommes les joueurs (selon le nombre), et les ajoutes a la liste "players".
+	 * Name the players (according to the numbers of it), and add it to the list "players".
 	 * 
 	 * @param pNbJoueurs
-	 * 					Le nombre de joueurs. (3/4)
+	 * 					Numbers of players. (3/4)
 	 */
 	public void creationJoueurs() {
 		
 		players.add(Chien);
 		
-		if (nbJoueur == 3) {	// Pour 3 joueurs.
+		if (nbJoueur == 3) {	// for 3 players.
 			
 			tourDeJeuMAX = 24;
 			
@@ -72,7 +72,7 @@ public class Jeu {
 			players.add(Joueur03);
 			defenseur.joueurs.add(Joueur03);
 			
-		} else if(nbJoueur == 4){	// Pour 4 joueurs.
+		} else if(nbJoueur == 4){	// for 4 players.
 			
 			tourDeJeuMAX = 18;
 			
@@ -95,27 +95,27 @@ public class Jeu {
 	}
 			
 	/**
-	 * Distribue les cartes. (toujours selon le nombre de joueurs.)
+	 * Distributes the cards. (according to number of players)
 	 */
 	public void distribution() {
 		
-		jeuDeCartes.initialisation();
-		jeuDeCartes.melanger();
+		jeuDeCartes.initialisation();	//Add the 78 cards to the deck
+		jeuDeCartes.melanger();		//Shuffle
 		
 		int i;
 		int j;
 		
-		for(i = 0; i < 6; i++) {
+		for(i = 0; i < 6; i++) {	//For the 6 cards from "Dog"
 			
 			Chien.Hand.add(Paquet.paquet.get(0)); 
-			// Ajoute la carte a la liste du joueurs (ici le chien mais le principe est le même).
+			// Add the card to player's Hand ("dog" here but it's the same).
 			Paquet.paquet.remove(0);
-			// Supprime la carte du paquet.
+			// Remove it from the deck.
 		}
 		
-		if( nbJoueur == 3) {
+		if( nbJoueur == 3) {	//For 3 players
 			
-			for(i = 0; i < 8; i++) { // Distribution 3 par 3 comme au tarot. (sauf la constitution du chien, manque de temps et complexification inutile pour première version).
+			for(i = 0; i < 8; i++) { // 3 by 3 distribution. (exept for the "dog" , lack of time and unnecessary complexity for first release).
 				
 				for(j = 0; j < 3; j++) {
 					
@@ -131,9 +131,9 @@ public class Jeu {
 				}
 				
 			}
-		} else {
+		} else {			 // For 4 players
 			
-			for(i = 0; i < 6; i++) { // Distribution 3 par 3 comme au tarot. (sauf la constitution du chien, manque de temps et complexification inutile pour première version).
+			for(i = 0; i < 6; i++) { // 3 by 3 distribution. (exept for the "dog" , lack of time and unnecessary complexity for first release).
 				for(j = 0; j < 3; j++) {
 					Joueur01.Hand.add(Paquet.paquet.get(0));
 					Paquet.paquet.remove(0);
@@ -148,11 +148,11 @@ public class Jeu {
 			}
 		}
 		
-		Joueur01.trier();
+		Joueur01.trier();	//Sort the player Hand.
 	}
 
 	/**
-	 * Affiche les joueurs :
+	 * Display the players :
 	 * <ul>
 	 * <li> Joueur0X: Pseudo : <i>pseudo</i> Score: <i>score</i>
 	 * </ul>
@@ -185,7 +185,7 @@ public class Jeu {
 	}
 	
 	/**
-	 * Fait miser le joueur et ajoute le chien a sa main.
+	 * Bet the player and add the "dog" to his hand
 	 */
 	public void mise() {
 		
@@ -203,23 +203,23 @@ public class Jeu {
 	}
 
 	/**
-	 * Le joueur compose son chien.
+	 * The player make his "dog".
 	 */
 	public void compositionChien() {
 		
 		if(Joueur.miseActuel <= 1) {
-			for(byte i = 6; i != 0; i--) { //Pour composer le chien de 6 cartes.
+			for(byte i = 6; i != 0; i--) { //To compose the "dog" of 6 cards.
 				
-				Joueur01.trier();
-				Joueur01.display();	//Affiche la main du joueur.
+				Joueur01.trier();	//Sort the player Hand.
+				Joueur01.display();	//Display his hand.
 				
 				System.out.println("Il vous reste : " + i + " carte(s) a mettre dans le chien \n Veuillez composez votre chien, \n Pour cela il suffit d'entrer la position de la carte :");
 				
-				byte carteSelectionee = sc1.nextByte(); //Récupère l'entrée clavier.
-				Chien.Hand.add(Joueur01.Hand.get(carteSelectionee)); //Ajoute la carte dans le chien.
+				byte carteSelectionee = sc1.nextByte(); //Recovered the keyboard input.
+				Chien.Hand.add(Joueur01.Hand.get(carteSelectionee)); //Add the card in the "dog".
 				
 				System.out.println("\n Vous avez mis [" + Joueur01.Hand.get(carteSelectionee) + "] dans le chien.");
-				Joueur01.Hand.remove(carteSelectionee); //Supprime la carte du joueur.
+				Joueur01.Hand.remove(carteSelectionee); //Remove it from his hand.
 			}
 		}
 	}
@@ -228,7 +228,8 @@ public class Jeu {
 		
 		if(nbJoueur == 3) {
 			
-			//Le joueur commenceras toujours les parties /!\
+			//The player begin ALL the games ! /!\
+			// WIP !
 				
 				Joueur01.jouerJOUEUR();
 				
