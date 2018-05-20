@@ -18,7 +18,7 @@ package objets;  //Appartennance au package "objets".
   * @version 0.5
   */
 
-public class Carte   						//Création d'une class "Carte"
+public class Carte   					//Création d'une class "Carte"
 implements Comparable<Carte>				//Implémentation d'un comparateur
 {
 	//ATTRIBUTS
@@ -58,13 +58,13 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	 */
 	public Carte(int Rang, int Couleur, int Id) {
 		
-	if (Couleur != PIQUE && Couleur != COEUR && Couleur != CARREAU &&  		//Vérifie la couleur de la carte.
+	if (Couleur != PIQUE && Couleur != COEUR && Couleur != CARREAU &&  	//Vérifie la couleur de la carte.
 			Couleur != TREFLE && Couleur != ATOUT) {
 		
 	 throw new IllegalArgumentException("Erreur: couleur impossible !"); 	//indique que cette couleur n'est pas possible.
 	}
 	
-	if (Rang < 1 || Rang > 36) {											//Vérifie le rang de la carte.
+	if (Rang < 1 || Rang > 36) {						//Vérifie le rang de la carte.
 		
 	 throw new IllegalArgumentException("Erreur: rang impossible !");   	//indique que ce rang n'est pas possible.
 	}
@@ -80,14 +80,14 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	/**
 	 * @return La couleur de la carte. (int)
 	 */
-	public int getCouleur(){ //Indique la couleur de la carte
+	public int getCouleur(){ 	//Indique la couleur de la carte
 		return this.couleur;	//renvois la couleur
 	}
 	
 	/**
 	 * @return Le rang de la carte. (int)
 	 */
-	public int getRang(){	//Indique le rang de la carte
+	public int getRang(){		//Indique le rang de la carte
 		return this.rang;	//renvois le rang
 	}
 	
@@ -107,8 +107,8 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	public String getCouleurNom() {
 			
 	switch ( couleur ) {					//Evite les répétitions de If(...) Else(...).
-											// Exemple : Si couleur = 1, alors getCouleurNom() afficheras "de Pique" .
-										    // De même pour couleur = 2, getcouleurNom() = "de Trefle".
+								// Exemple : Si couleur = 1, alors getCouleurNom() afficheras "de Pique" .
+								// De même pour couleur = 2, getcouleurNom() = "de Trefle".
 	
 	case PIQUE:   return " de Pique";
 	case TREFLE:    return " de Trefle";
@@ -131,9 +131,9 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	public String getRangNom() {
 		
          switch ( rang ) {			//Evite les répétitions de If(...) Else(...).
-         							// Exemple : Si rang = 1, alors getRangNom() afficheras "As" .
-         							// De même pour rang = 2, getRangNom() = "2".
-         							// etc...
+         					// Exemple : Si rang = 1, alors getRangNom() afficheras "As" .
+         					// De même pour rang = 2, getRangNom() = "2".
+         					// etc...
          
          case 1:   return "As";
          case 2:   return "2";
@@ -190,8 +190,6 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	/**
 	 * Méthode pour comparer les cartes
 	 * par couleur puis par rang puis par id
-	 * 
-	 * WIP !!!
 	 */
 	@Override
 	public int compareTo(Carte carte2) {
