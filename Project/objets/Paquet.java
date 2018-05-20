@@ -51,7 +51,7 @@ public class Paquet {
 		//Les Atouts
 		id = 56;
 		for(rang = 15; rang <=36; rang++) {	//Pour le rang allant de 15 à 36
-			couleur= 4;						//On garde la couleur "Atout"
+			couleur= 4;			//On garde la couleur "Atout"
 			id++;
 			paquet.add(new Carte(rang, couleur, id)); //Ajoute la carte créer au paquet.	
 		}
