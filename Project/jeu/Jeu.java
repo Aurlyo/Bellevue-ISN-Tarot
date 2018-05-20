@@ -24,11 +24,11 @@ public class Jeu {
 				
 	//ATTRIBUTS
     public static Scanner sc1 = new Scanner(System.in);					//Entrée clavier
-	static Paquet jeuDeCartes = new Paquet(); 							//Création du jeu de cartes
+	static Paquet jeuDeCartes = new Paquet(); 					//Création du jeu de cartes
 	static List<Joueur> players = new ArrayList<Joueur>();				//Liste de Joueurs
-	Equipe preneur = new Equipe((byte) 1);								//Création de l'équipe "preneur"
-	Equipe defenseur = new Equipe((byte) 0);							//Création de l'équipe 'Defenseur'.
-	public static List<Carte> carteJouees = new ArrayList<Carte>(); 	//Liste pour les cartes actuellement jouées
+	Equipe preneur = new Equipe((byte) 1);						//Création de l'équipe "preneur"
+	Equipe defenseur = new Equipe((byte) 0);					//Création de l'équipe 'Defenseur'.
+	public static List<Carte> carteJouees = new ArrayList<Carte>(); 		//Liste pour les cartes actuellement jouées
 	
 	static double score = 0.0;
 	static Joueur Joueur01 = new Joueur("Futa", score, (byte) 1), 		//Création des joueurs
@@ -37,11 +37,11 @@ public class Jeu {
 				  Joueur04 = new Joueur("Loli", score, (byte) 4),
 				  Chien = new Joueur("Chien", score, (byte) 5);
 	
-	static byte nbJoueur;				//Le nombre de joueurs
+	static byte nbJoueur;			//Le nombre de joueurs
 	public static int tourDeJeuMAX; 	//Le nombre de tours de jeu maximum ( = plis maximum)
 	public static int tourDeJeu = 0;	//Tours de jeu
 	static double scoreNecessaire = 51;	//Le score necessaire pour gagner
-	byte bouts = 0;						//Le nombre de bout du preneur
+	byte bouts = 0;				//Le nombre de bout du preneur
 	
 	public Jeu(byte nbJoueurs) {
 		nbJoueur = nbJoueurs;
@@ -53,7 +53,7 @@ public class Jeu {
 	 * Nommes les joueurs (selon le nombre), et les ajoutes a la liste "players".
 	 * 
 	 * @param pNbJoueurs
-	 * 					Le nombre de joueurs. (3/4)
+	 * 		Le nombre de joueurs. (3/4)
 	 */
 	public void creationJoueurs() {
 		
@@ -63,12 +63,13 @@ public class Jeu {
 			
 			tourDeJeuMAX = 24;	//Nombre de plis maximum (= nombre de tour de jeu a faire)
 			
-			Joueur01.nommer();					// Nomme le joueur
-			players.add(Joueur01);				// Ajout a la liste de joueur
-			preneur.joueurs.add(Joueur01);		// Ajout a l'équipe " Preneur " (étant donner que dans cette version, c'est le joueur qui prends forcément)
+			Joueur01.nommer();			// Nomme le joueur
+			players.add(Joueur01);			// Ajout a la liste de joueur
+			preneur.joueurs.add(Joueur01);		// Ajout a l'équipe " Preneur " (étant donner que dans cette version,
+			c'est le joueur qui prends forcément)
 			
-			Joueur02.pseudoAleatoire();			// Choisit un pseudo parmi une liste prédeterminé
-			players.add(Joueur02);				// Ajout a la liste de joueur
+			Joueur02.pseudoAleatoire();		// Choisit un pseudo parmi une liste prédeterminé
+			players.add(Joueur02);			// Ajout a la liste de joueur
 			defenseur.joueurs.add(Joueur02);	// Ajout a l'équipê " défenseur "
 			Joueur03.pseudoAleatoire();
 			players.add(Joueur03);
@@ -76,7 +77,7 @@ public class Jeu {
 			
 		} else if(nbJoueur == 4){	// Pour 4 joueurs.
 			
-			tourDeJeuMAX = 18;	    //Nombre de plis maximum (= nombre de tour de jeu a faire)
+			tourDeJeuMAX = 18;      //Nombre de plis maximum (= nombre de tour de jeu a faire)
 			
 			Joueur01.nommer();
 			players.add(Joueur01);
@@ -119,7 +120,8 @@ public class Jeu {
 		
 		if( nbJoueur == 3) {
 			
-			for(i = 0; i < 8; i++) { // Distribution 3 par 3 comme au tarot. (sauf la constitution du chien, manque de temps et complexification inutile pour première version).
+			for(i = 0; i < 8; i++) { // Distribution 3 par 3 comme au tarot. (sauf la constitution du chien,
+				                 //manque de temps et complexification inutile pour première version).
 				
 				for(j = 0; j < 3; j++) {
 					
@@ -137,7 +139,8 @@ public class Jeu {
 			}
 		} else {
 			
-			for(i = 0; i < 6; i++) { // Distribution 3 par 3 comme au tarot. (sauf la constitution du chien, manque de temps et complexification inutile pour première version).
+			for(i = 0; i < 6; i++) { // Distribution 3 par 3 comme au tarot. (sauf la constitution du chien,
+						 //manque de temps et complexification inutile pour première version).
 				for(j = 0; j < 3; j++) {
 					Joueur01.Hand.add(Paquet.paquet.get(0));
 					Paquet.paquet.remove(0);
@@ -286,8 +289,6 @@ public class Jeu {
 	
 	/**
 	 * Détermine qui gagne la manche(/plis)
-	 * 
-	 * Work in progress !!! ( 17/05/18)
 	 */
 	public void victoire() {
 		
@@ -405,27 +406,27 @@ public class Jeu {
 		
 		}
 		
-		if (preneur.score >= scoreNecessaire) {							//Victoire
+		if (preneur.score >= scoreNecessaire) {	//Victoire
 			
 			byte mise = Joueur01.miseActuel;
 			
 			switch(mise) {
 			
-			case 1: Joueur01.score = Joueur01.score + preneur.score * 2;					// Garde(x2)
+			case 1: Joueur01.score = Joueur01.score + preneur.score * 2;// Garde(x2)
 					Joueur02.score = Joueur02.score - preneur.score;
 					Joueur03.score = Joueur03.score - preneur.score;
 					if (nbJoueur == 4) {
 						Joueur04.score = Joueur04.score - preneur.score;
 					}
 
-			case 2: Joueur01.score = Joueur01.score + preneur.score * 4;;				// Garde sans(x4)
+			case 2: Joueur01.score = Joueur01.score + preneur.score * 4;// Garde sans(x4)
 					Joueur02.score = Joueur02.score - preneur.score;
 					Joueur03.score = Joueur03.score - preneur.score;
 					if (nbJoueur == 4) {
 						Joueur04.score = Joueur04.score - preneur.score;
 					}
 					
-			case 3: Joueur01.score = Joueur01.score + preneur.score * 3;;				// Garde contre(x6)
+			case 3: Joueur01.score = Joueur01.score + preneur.score * 3;// Garde contre(x6)
 					Joueur02.score = Joueur02.score - preneur.score;
 					Joueur03.score = Joueur03.score - preneur.score;
 					if (nbJoueur == 4) {
@@ -434,7 +435,7 @@ public class Jeu {
 					
 			}
 			
-			preneur.score = 0;							// Reset du score des preneurs
+			preneur.score = 0;// Reset du score des preneurs
 			System.out.println(" \n Vous avez gagné !   :D ");
 		} else { //Défaite
 			
@@ -442,21 +443,21 @@ public class Jeu {
 			
 			switch(mise) {
 			
-			case 1: Joueur01.score = Joueur01.score - preneur.score * 2;					// Garde(x2)
+			case 1: Joueur01.score = Joueur01.score - preneur.score * 2;// Garde(x2)
 					Joueur02.score = Joueur02.score + preneur.score;
 					Joueur03.score = Joueur03.score + preneur.score;
 					if (nbJoueur == 4) {
 						Joueur04.score = Joueur04.score + preneur.score;
 					}
 
-			case 2: Joueur01.score = Joueur01.score - preneur.score * 4;;				// Garde sans(x4)
+			case 2: Joueur01.score = Joueur01.score - preneur.score * 4;// Garde sans(x4)
 					Joueur02.score = Joueur02.score + preneur.score;
 					Joueur03.score = Joueur03.score + preneur.score;
 					if (nbJoueur == 4) {
 						Joueur04.score = Joueur04.score + preneur.score;
 					}
 					
-			case 3: Joueur01.score = Joueur01.score - preneur.score * 3;;				// Garde contre(x6)
+			case 3: Joueur01.score = Joueur01.score - preneur.score * 3;// Garde contre(x6)
 					Joueur02.score = Joueur02.score + preneur.score;
 					Joueur03.score = Joueur03.score + preneur.score;
 					if (nbJoueur == 4) {
@@ -464,7 +465,7 @@ public class Jeu {
 					}
 			}
 			
-			preneur.score = 0;							// Reset du score des preneurs
+			preneur.score = 0; // Reset du score des preneurs
 			System.out.println(" \n Vous avez perdu !  :( ");
 		}
 		
