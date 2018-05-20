@@ -40,7 +40,7 @@ public class Joueur {
 	public byte cartejouee;			// La carte jouée par le joueur
 	public boolean jouer;			// Si le joueur a joué
 	
-	public ArrayList<Carte> Hand = new ArrayList<Carte>();	 // La main du joueur
+	public ArrayList<Carte> Hand = new ArrayList<Carte>();	 		// La main du joueur
 	public ArrayList<Carte> CartesPossible = new ArrayList<Carte>();	// Les cartes qu'il peut jouer
 	
 	//CONSTRUCTEUR
@@ -55,7 +55,8 @@ public class Joueur {
 	 * @param Position
 	 * 					Son identifiant
 	 */
-	public Joueur(String Pseudo,double score2,byte Position){  //(Pseudo, score, position) / ex : (Aurélien, 0 , 1) = Pseudo: Aurélien,Score: 0,Joueur n°01
+	public Joueur(String Pseudo,double score2,byte Position){  //(Pseudo, score, position) /
+		//ex : (Aurélien, 0 , 1) = Pseudo: Aurélien,Score: 0,Joueur n°01
 		this.pseudo = Pseudo;
 		this.score = score2;
 		this.position = Position;
