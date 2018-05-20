@@ -12,6 +12,7 @@ public class Equipe {
 	
 	public ArrayList<Joueur> joueurs = new ArrayList<Joueur>(); //Les joueurs de l'équipe.
 	public ArrayList<Carte> plis = new ArrayList<Carte>();     //Les plis gagnés de l'équipe.
+	public double score = 0.0;
 	byte type; //Soit 1 ou 0
 	String nom;
 	

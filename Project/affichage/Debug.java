@@ -10,6 +10,7 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -109,6 +110,8 @@ public class Debug {
         frame.add(inArea, BorderLayout.SOUTH);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
+        frame.setIconImage(new ImageIcon("F:\\Cours\\ISN\\Workspace\\Bellevue_ISN_Tarot\\src\\assets\\icon.png").getImage());
+        frame.setTitle("ISN Bellevue 2018 : Tarot");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

@@ -58,15 +58,15 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	 */
 	public Carte(int Rang, int Couleur, int Id) {
 		
-	if (Couleur != PIQUE && Couleur != COEUR && Couleur != CARREAU &&  //Vérifie la couleur de la carte.
+	if (Couleur != PIQUE && Couleur != COEUR && Couleur != CARREAU &&  		//Vérifie la couleur de la carte.
 			Couleur != TREFLE && Couleur != ATOUT) {
 		
-	 throw new IllegalArgumentException("Erreur: couleur impossible !"); //indique que cette couleur n'est pas possible.
+	 throw new IllegalArgumentException("Erreur: couleur impossible !"); 	//indique que cette couleur n'est pas possible.
 	}
 	
-	if (Rang < 1 || Rang > 36) {										//Vérifie le rang de la carte.
+	if (Rang < 1 || Rang > 36) {											//Vérifie le rang de la carte.
 		
-	 throw new IllegalArgumentException("Erreur: rang impossible !"); //indique que ce rang n'est pas possible.
+	 throw new IllegalArgumentException("Erreur: rang impossible !");   	//indique que ce rang n'est pas possible.
 	}
 	
 	rang = Rang;
@@ -81,14 +81,14 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	 * @return La couleur de la carte. (int)
 	 */
 	public int getCouleur(){ //Indique la couleur de la carte
-		return couleur;	//renvois la couleur
+		return this.couleur;	//renvois la couleur
 	}
 	
 	/**
 	 * @return Le rang de la carte. (int)
 	 */
 	public int getRang(){	//Indique le rang de la carte
-		return rang;	//renvois le rang
+		return this.rang;	//renvois le rang
 	}
 	
 	/**
@@ -107,8 +107,8 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	public String getCouleurNom() {
 			
 	switch ( couleur ) {					//Evite les répétitions de If(...) Else(...).
-	// Exemple : Si couleur = 1, alors getCouleurNom() afficheras "de Pique" .
-    // De même pour couleur = 2, getcouleurNom() = "de Trefle".
+											// Exemple : Si couleur = 1, alors getCouleurNom() afficheras "de Pique" .
+										    // De même pour couleur = 2, getcouleurNom() = "de Trefle".
 	
 	case PIQUE:   return " de Pique";
 	case TREFLE:    return " de Trefle";
@@ -131,8 +131,9 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	public String getRangNom() {
 		
          switch ( rang ) {			//Evite les répétitions de If(...) Else(...).
-         // Exemple : Si rang = 1, alors getRangNom() afficheras "As" .
-         // De même pour rang = 2, getRangNom() = "2".
+         							// Exemple : Si rang = 1, alors getRangNom() afficheras "As" .
+         							// De même pour rang = 2, getRangNom() = "2".
+         							// etc...
          
          case 1:   return "As";
          case 2:   return "2";
@@ -144,12 +145,12 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
          case 8:   return "8";
          case 9:   return "9";
          case 10:  return "10";
-         case 11:  return "Valet";
-         case 12:  return "Cavalier";
-         case 13:  return "Dame";
-         case 14:  return "Roi";
+         case VALET:  return "Valet";
+         case CAVALIER:  return "Cavalier";
+         case DAME:  return "Dame";
+         case ROI:  return "Roi";
          //Atouts
-         case 15:  return "Petit";
+         case PETIT:  return "Petit";
          case 16:   return "Deux";
          case 17:   return "Trois";
          case 18:   return "Quatre";
@@ -170,7 +171,7 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
          case 33:  return "Dix_neuf";
          case 34:  return "Vingt";
          case 35:  return "Vingt_et_un";
-         case 36:  return "Excuse";
+         case EXCUSE:  return "Excuse";
          
          default: return "ERROR"; // Valeur par défaut, ici cela correspondrait a une erreur lors de la création des cartes.
       }
@@ -194,7 +195,8 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 	 */
 	@Override
 	public int compareTo(Carte carte2) {
-
+		
+		
 		//Comparaison couleur
 		int compCouleur = this.couleur.compareTo(carte2.couleur);
 		if(compCouleur != 0) {return compCouleur;}
@@ -203,10 +205,11 @@ implements Comparable<Carte>				//Implémentation d'un comparateur
 		int compRang = this.rang.compareTo(carte2.rang);
 		if(compRang != 0) {return compRang;}
 		
+		/*
 		//Comparaison id
 		int compId = this.id.compareTo(carte2.id);
 		if(compId != 0) {return compId;}
-	
+		*/
 		return 0;
 	}
 } //FIN CLASSE CARTE d(^^*)

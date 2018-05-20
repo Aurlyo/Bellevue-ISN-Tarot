@@ -31,30 +31,33 @@ public class Joueur {
 	public String pseudo = "Aurelien , Wilhelm, Futa, Loli, Yoshi, Mario, Jack, Dio, Jotaro, Joseph, Polnareff, C3PO, R2D2, Assia, Alhynae, Flavien, Iridium, Saturne V, Ciel, Sebastian, L, Kira, Misaka, Aoba"; // Le pseudo, avec une liste de pseudo pré-défini.
 	public String Pseudos[] = pseudo.split(",");
 	
-	public short score; 			// Le score
+	public double score; 			// Le score
 	public byte position; 			// L'identifiant , il sert a savoir quel joueur c'est, (1 / 2 / 3 / 4)
-	public static boolean prise;	// Si le joueurs a pris.
-	public static byte miseActuel;	// Sa valeur de mise.
+	public boolean prise;			// Si le joueurs a pris.
+	public byte miseActuel = 2;		// Sa valeur de mise.
+	public boolean victoire = true;
 	
-	public byte cartejouee;
-	public boolean jouer;
+	public byte cartejouee;			// La carte jouée par le joueur
+	public boolean jouer;			// Si le joueur a joué
 	
-	public ArrayList<Carte> Hand = new ArrayList<Carte>();
+	public ArrayList<Carte> Hand = new ArrayList<Carte>();	 // La main du joueur
+	public ArrayList<Carte> CartesPossible = new ArrayList<Carte>();	// Les cartes qu'il peut jouer
 	
 	//CONSTRUCTEUR
+	
 	/** 
 	 * @param Pseudo
 	 * 					Le pseudo du joueur
 	 * <p>
-	 * @param Score
+	 * @param score2
 	 * 					Son score
 	 * <p>
 	 * @param Position
 	 * 					Son identifiant
 	 */
-	public Joueur(String Pseudo,short Score,byte Position){  //(Pseudo, score, position) / ex : (Aurélien, 0 , 1) = Pseudo: Aurélien,Score: 0,Joueur n°01
+	public Joueur(String Pseudo,double score2,byte Position){  //(Pseudo, score, position) / ex : (Aurélien, 0 , 1) = Pseudo: Aurélien,Score: 0,Joueur n°01
 		this.pseudo = Pseudo;
-		this.score = Score;
+		this.score = score2;
 		this.position = Position;
 	}
 
@@ -105,7 +108,7 @@ public class Joueur {
 	/**
 	 * @return Le score du joueur. (short)
 	 */
-	public int getScore(){  //Affiche le score
+	public double getScore(){  //Affiche le score
 		return score;
 	}
 	
@@ -128,16 +131,33 @@ public class Joueur {
 	
 	/**
 	 * Affiche les cartes du joueurs.
+	 * 
+	 * @param hand
+	 * 				Est-ce la main du joueur qu'on veut afficher ?
 	 */
-	public void display() {
-		int i;
-		System.out.println(getPseudo() + " a dans sa main :");
+	public void display(boolean hand) {
 		
-		for(i=0; i < Hand.size(); i++) {	
-			System.out.println("[" + Hand.get(i) + "]  [" + i +"]");	//Affiche en colonne dans la console.
+		if(hand == true) {
+			int i;
+			System.out.println(getPseudo() + " a dans sa main :");
+			
+			for(i=0; i < Hand.size(); i++) {	
+				System.out.println("[" + this.Hand.get(i) + "]  [" + i +"]");	//Affiche en colonne dans la console.
+			}
+			
+			System.out.println( "----END---- \n");
+		} else {
+			
+			int i;
+			System.out.println(getPseudo() + " Vous pouvez jouer :");
+			
+			for(i=0; i < this.CartesPossible.size(); i++) {	
+				System.out.println("[" + this.CartesPossible.get(i) + "]  [" + i +"]");	//Affiche en colonne dans la console.
+			}
+			
+			System.out.println( "----END---- \n");
+			
 		}
-		
-		System.out.println( "----END---- \n");
 	}
 	
 	/**
@@ -149,9 +169,9 @@ public class Joueur {
 	}
 	
 	/**
-	 * Propose les mises au joueurs.
+	 * Propose les mises au joueurs.s
 	 */
-	public int mise(){
+	public void mise(){
 		
 		String[] Mise = {"Petite", "Garde", "Garde sans", "Garde contre"}; //Les mises possibles.
 		
@@ -164,9 +184,8 @@ public class Joueur {
 	    	      Mise,
 	    	      Mise[0]);
 		
-		miseActuel = mise;
+		this.miseActuel = mise;
 		
-		return miseActuel;
 	}
 	
 	/**
@@ -191,6 +210,153 @@ public class Joueur {
 		return prise;
 	}
 	
+	/**
+	 * Selectionne les cartes possible a jouer.
+	 */
+	void selectionCartes() {
+		
+		int couleurJouee = Jeu.carteJouees.get(0).getCouleur();
+		
+		if(couleurJouee == 0) { // PIQUE
+			
+			for(int i = 0; i < this.Hand.size(); i++) {
+				
+				int carte = this.Hand.get(i).getCouleur();
+				
+				if (carte == 0) {
+					
+					this.CartesPossible.add(this.Hand.get(i));
+					this.Hand.remove(i);
+					
+				}
+			}
+			
+			if(this.CartesPossible.isEmpty()) {
+				
+				for (int j = 0; j < this.Hand.size(); j++) {
+					
+					int carte1 = this.Hand.get(j).getCouleur();
+					
+					if (carte1 == 4) {
+						
+						this.CartesPossible.add(this.Hand.get(j));
+						this.Hand.remove(j);
+						
+					}
+				}
+				
+			}
+			
+		} else if(couleurJouee == 1) { // TREFLE
+			
+			for(int i = 0; i < this.Hand.size(); i++) {
+				
+				int carte = this.Hand.get(i).getCouleur();
+				
+				if (carte == 1) {
+					
+					this.CartesPossible.add(this.Hand.get(i));
+					this.Hand.remove(i);
+					
+				}
+			}
+			
+			if(this.CartesPossible.isEmpty()) {
+				
+				for (int j = 0; j < this.Hand.size(); j++) {
+					
+					int carte1 = this.Hand.get(j).getCouleur();
+					
+					if (carte1 == 4) {
+						
+						this.CartesPossible.add(this.Hand.get(j));
+						this.Hand.remove(j);
+						
+					}
+			
+				}
+				
+			}
+			
+		} else if(couleurJouee == 2) { // COEUR
+			
+			for(int i = 0; i < this.Hand.size(); i++) {
+				
+				int carte = this.Hand.get(i).getCouleur();
+				
+				if (carte == 2) {
+					
+					this.CartesPossible.add(this.Hand.get(i));
+					this.Hand.remove(i);
+					
+				}
+			}
+			
+			if(this.CartesPossible.isEmpty()) {
+				
+				for (int j = 0; j < this.Hand.size(); j++) {
+					
+					int carte1 = this.Hand.get(j).getCouleur();
+					
+					if (carte1 == 4) {
+						
+						this.CartesPossible.add(this.Hand.get(j));
+						this.Hand.remove(j);
+						
+					}
+			
+				}
+				
+			}
+			
+		} else if(couleurJouee == 3) { // Carreau
+			
+			for(int i = 0; i < this.Hand.size(); i++) {
+				
+				int carte = this.Hand.get(i).getCouleur();
+				
+				if (carte == 3) {
+					
+					this.CartesPossible.add(this.Hand.get(i));
+					this.Hand.remove(i);
+					
+				}
+			}
+			
+			if(this.CartesPossible.isEmpty()) {
+				
+				for (int j = 0; j < this.Hand.size(); j++) {
+					
+					int carte1 = this.Hand.get(j).getCouleur();
+					
+					if (carte1 == 4) {
+						
+						this.CartesPossible.add(this.Hand.get(j));
+						this.Hand.remove(j);
+						
+					}
+			
+				}
+				
+			}
+			
+		} else if(couleurJouee == 4) { //ATOUT
+				
+			for(int i = 0; i < this.Hand.size(); i++) {
+					
+				int carte = this.Hand.get(i).getCouleur();
+				int carte2 = this.Hand.get(i).getRang();
+					
+				if (carte == 4 && carte2 > Jeu.carteJouees.get(0).getRang()) {
+						
+					this.CartesPossible.add(this.Hand.get(i));
+					this.Hand.remove(i);
+						
+				}
+			}
+				
+		}
+	}
 	
 	
 	/**
@@ -210,20 +376,33 @@ public class Joueur {
 			
 		} else {
 			
-			while(Jeu.carteJouees.get(0).getCouleur() != this.Hand.get(cartejouee).getCouleur() && this.jouer == false) {
-							
-				this.cartejouee = (byte) (Math.random() * ( (24 - Jeu.tourDeJeu) - 0 ));
+			selectionCartes();
+			
+			if(this.CartesPossible.isEmpty()) {
 				
-				if(this.Hand.get(cartejouee).getCouleur() == Carte.ATOUT && this.jouer == false) break;
+				this.cartejouee = (byte) (Math.random() * ( (Jeu.tourDeJeuMAX - Jeu.tourDeJeu) - 0 ));
+				System.out.println(this.pseudo + " a jouer : [" + this.Hand.get(cartejouee) + "] !");
+
+				Jeu.carteJouees.add(this.Hand.get(cartejouee));
+				this.Hand.remove(cartejouee);
+			} else {
+		
+				this.cartejouee = (byte) (Math.random() * ( (Jeu.tourDeJeuMAX - (this.Hand.size() + Jeu.tourDeJeu) - 0 )));
+				System.out.println(this.pseudo + " a jouer : [" + this.CartesPossible.get(cartejouee) + "] !");
+
+				Jeu.carteJouees.add(this.CartesPossible.get(cartejouee));
+				this.CartesPossible.remove(cartejouee);
+				//Remet les cartes dans la main du joueur
+				this.Hand.addAll(CartesPossible);
+				CartesPossible.clear();
 			}
 			
-			System.out.println(this.pseudo + " a jouer : [" + this.Hand.get(cartejouee) + "] !");
-			Jeu.carteJouees.add(this.Hand.get(cartejouee));
-			this.Hand.remove(cartejouee);
-			
+			trier();
+			this.jouer = true;
+				
+			}
 			
 		}
-	}
 	
 	/**
 	 * Joue une carte (Pour le joueur)
@@ -234,7 +413,8 @@ public class Joueur {
 		
 		if(Jeu.carteJouees.isEmpty() == true && this.jouer == false) { //Si c'est le premier a jouer.
 			
-			System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main \n EN ATTENTE D'INTERFACE GRAPHIQUE !");
+			this.display(true);
+			System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main.");
 			this.cartejouee = Jeu.sc1.nextByte();			//Entrée clavier utilisateur
 			System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
 			Jeu.carteJouees.add(this.Hand.get(cartejouee));	//On ajoute la carte sur le terrain de jeu.
@@ -242,42 +422,34 @@ public class Joueur {
 			this.jouer = true;
 			
 		} else { // Sinon on verifie la couleur jouée.
+					
+			selectionCartes();
 			
-			byte tentative = 0;
-			
-			if(tentative < 10) {
+			if(this.CartesPossible.isEmpty()) {
 				
-				while(Jeu.carteJouees.get(0).getCouleur() != this.Hand.get(cartejouee).getCouleur() && this.jouer == false) {
-					
-					tentative++;
-					
-					System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main.");
-					this.cartejouee = Jeu.sc1.nextByte();
-					
-					if(this.Hand.get(cartejouee).getCouleur() == Carte.ATOUT && jouer == false) { //Pour le cas ou la carte jouée est un atout. (=Couper).
-						
-						System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
-						Jeu.carteJouees.add(this.Hand.get(cartejouee));			//On ajoute la carte sur le terrain de jeu.
-						this.Hand.remove(cartejouee);							//On retire la carte de la main du joueur.
-						jouer = true;
-						
-					} else {
-						
-						System.out.println("Vous ne pouver pas jouer cette carte !");
-						
-					}
-				}
+				System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main.");
+				this.cartejouee = Jeu.sc1.nextByte();			//Entrée clavier utilisateur
+				System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
+				Jeu.carteJouees.add(this.Hand.get(cartejouee));	//On ajoute la carte sur le terrain de jeu.
+				this.Hand.remove(cartejouee);					//On retire la carte de la main du joueur.
+				
 			} else {
-				
-				System.out.println("Il semblerait que vous etes arriver a un point de blocage !!!");
-				
+		
+				System.out.println("Quel carte voulez vous jouer ? \n Utilise le nombre correspondant a sa position dans ta main.");
+				this.cartejouee = Jeu.sc1.nextByte();			//Entrée clavier utilisateur
+
+				Jeu.carteJouees.add(this.CartesPossible.get(cartejouee));
+				this.CartesPossible.remove(cartejouee);
+				//Remet les cartes dans la main du joueur
+				this.Hand.addAll(CartesPossible);
+				CartesPossible.clear();
 			}
 			
-			System.out.println("Vous avez jouer [" + this.Hand.get(cartejouee) + "] !");
-			Jeu.carteJouees.add(this.Hand.get(cartejouee));	//On ajoute la carte sur le terrain de jeu.
-			this.Hand.remove(cartejouee);
-			jouer = true;
+			trier();
+			this.jouer = true;
+			
+			
+			}
 			
 		}
-	}
 } //FIN CLASSE JOUEUR d(^^*)
